@@ -1,0 +1,15 @@
+{
+  "name": "ceshi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ceshi.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gm": "^1.23.0",
+    "webshot": "^0.18.0"
+  }
+}
