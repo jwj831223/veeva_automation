@@ -1,5 +1,6 @@
 {
     "reject": [
-        ".git"
+        ".git",
+        "aaaaa_file_zip"
     ]
 }

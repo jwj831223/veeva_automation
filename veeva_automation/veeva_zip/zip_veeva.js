@@ -12,6 +12,17 @@ if (process.argv.length != 3) {
 }
 
 var first_folder_arr = fs.readdirSync(process.argv[2]);
+
+
+// 判断存压缩包的文件夹是否存在，如果不存在则创建
+var target_path = path.join(process.argv[2], "aaaaa_file_zip");
+var has_target_path = fs.existsSync(target_path);
+if (!has_target_path) {
+    fs.mkdirSync(target_path);
+}
+
+
+
 (function veeva_zip(j) {
     if (j == first_folder_arr.length) {
         console.log("已完成100%");
@@ -28,22 +39,29 @@ var first_folder_arr = fs.readdirSync(process.argv[2]);
 
     var stats = fs.statSync(first_folder);
     if (stats.isDirectory()) {
-        var output_name = first_folder + '.zip';
-        var new_output_name = path.join(first_folder, first_folder_arr[j]) + '.zip';
-        //删除原有的压缩包
-        var has_file = fs.existsSync(new_output_name);
+        var temporary_output_zip = first_folder + '.zip';
+        var self_zip = path.join(first_folder, first_folder_arr[j]) + '.zip';
+        var target_path_zip = path.join(target_path, first_folder_arr[j]) + '.zip';
+        //删除自己目录下的压缩包
+        var has_file = fs.existsSync(self_zip);
         if (has_file) {
-            fs.unlinkSync(new_output_name);
+            fs.unlinkSync(self_zip);
         }
+        //删除目标路径下的压缩包
+        var has_file = fs.existsSync(self_zip);
+        if (has_file) {
+            fs.unlinkSync(self_zip);
+        }
+
         // 创建一最终打包文件的输出流
-        output = fs.createWriteStream(output_name);
+        output = fs.createWriteStream(temporary_output_zip);
         //生成archiver对象，打包类型为zip
         var archive = archiver('zip');
         //将打包对象与输出流关联
         archive.pipe(output);
 
         output.on('close', function() {
-            fs.renameSync(output_name, new_output_name);
+            fs.renameSync(temporary_output_zip, target_path_zip);
             console.log('已完成' + parseInt(100 * j / first_folder_arr.length) + "%");
             veeva_zip(j + 1);
             // return;

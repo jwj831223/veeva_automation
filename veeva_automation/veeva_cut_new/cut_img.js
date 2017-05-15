@@ -2,7 +2,6 @@ var webshot = require("webshot");
 var gm = require('gm');
 var fs = require("fs");
 var path = require("path");
-var webshot = require("webshot");
 
 var cut_array = [];
 

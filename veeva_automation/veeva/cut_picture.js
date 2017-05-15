@@ -45,7 +45,8 @@ var num = 0;
         .open(cut_array[num])
         .wait(1000)
         .screenshot(dirname + "/" + '/thumb.png')
-        .do(function() {
+        .then(function() {
+            horseman.close();
             gm(dirname + "/" + '/thumb.png')
                 .resize(200, 150, '!')
                 .write(dirname + '/thumb.png', function(err) {
@@ -57,5 +58,4 @@ var num = 0;
                     }
                 });
         })
-        .close();
 })(0)
