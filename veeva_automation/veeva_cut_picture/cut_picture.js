@@ -53,7 +53,7 @@ var num = 0;
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log("已完成" + (100 * num / cut_array.length) + "%");
+                        console.log("已完成" + parseInt((100 * num / cut_array.length)) + "%");
                         cut(num + 1);
                     }
                 });
