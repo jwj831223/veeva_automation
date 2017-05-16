@@ -35,6 +35,7 @@ var source_html = "";
 var target_img = "";
 
 var options = {
+    phantomPath: "C:\\Users\\siyu.chen\\Downloads\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe",
     siteType: "file",
     windowSize: {
         width: 1024,
