@@ -3,6 +3,12 @@ var gm = require('gm');
 var fs = require("fs");
 var path = require("path");
 
+
+var config = fs.readFileSync("config.json");
+config = JSON.parse(config.toString());
+var domain_name_start = config.domain_name_start;
+var phantomPath = config.phantomPath
+
 var cut_array = [];
 
 if (process.argv.length != 3) {
@@ -35,7 +41,7 @@ var source_html = "";
 var target_img = "";
 
 var options = {
-    phantomPath: "C:\\Users\\siyu.chen\\Downloads\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe",
+    phantomPath: phantomPath,
     siteType: 'url',
     windowSize: {
         width: 1024,
@@ -57,7 +63,7 @@ var options = {
     // console.log(source_html)
 
     //本应该在配置文件中写入
-    source_html = "http://127.0.0.1:3000" + source_html;
+    source_html = domain_name_start + source_html;
     source_html = source_html.replace(/\\/g, "/")
         // console.log(source_html)
 
