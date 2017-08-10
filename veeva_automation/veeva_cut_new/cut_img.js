@@ -36,7 +36,7 @@ var target_img = "";
 
 var options = {
     phantomPath: "C:\\Users\\siyu.chen\\Downloads\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe",
-    siteType: "file",
+    siteType: 'url',
     windowSize: {
         width: 1024,
         height: 768
@@ -51,7 +51,45 @@ var options = {
         return;
     }
     source_html = cut_array[i];
-    target_img = path.join(path.dirname(source_html), "thumb.png");
+    var source_thumb_path = source_html;
+    var separator_last_ = my_lastIndexOf(source_html, "\\", 3);
+    source_html = source_html.substring(separator_last_);
+    // console.log(source_html)
+
+    //本应该在配置文件中写入
+    source_html = "http://127.0.0.1:3000" + source_html;
+    source_html = source_html.replace(/\\/g, "/")
+        // console.log(source_html)
+
+    // //查找倒数第二条斜线的位置,只能够查找单个字母
+    function my_lastIndexOf(searchvalue, letter, num) {
+        var string_len = searchvalue.length;
+        var j = 0; //用来记载查找到第几个需要的元素 
+        for (var i = string_len; i > 0; --i) {
+            if (letter == searchvalue[i]) {
+                ++j;
+                if (num == j) {
+                    // 证明找到了第N个查找的字母
+                    return i;
+                }
+            }
+        }
+    }
+
+    target_img = path.join(path.dirname(source_thumb_path), "thumb.png");
+
+
+    //如果原目录下存在缩略图将其删除
+    // if (fs.existsSync(target_img)) {
+    //     fs.unlinkSync(target_img);
+    // }
+
+
+
+
+    // console.log(source_html);
+    // source_html = "http://127.0.0.1:3000/cut_test/CN_BAIFULE_EDA_2017_V1.0_SLIDE026/index.html"
+
 
     webshot(source_html, target_img, options, (err) => {
         if (err) {
